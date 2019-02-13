@@ -44,7 +44,7 @@ var pages = [][]string{
 <input type="checkbox" name="check1" value="Check1">Check 1<br>
 <input type="checkbox" name="check2" value="Check2">Check 2<br><br>
 <input type="submit" value="Submit">
-</form> 
+</form>
 <div id="foo" style="color:#0000FF">
   <h3>This is a heading</h3>
   <p>This is a <a href="http://golang.com">longwordlinktogolang</a> to a page served by a go server.</p>
@@ -96,7 +96,7 @@ func checkSession(t *testing.T) {
 	if session == nil {
 		desiredCapabilities := Capabilities{"Platform": "Linux"}
 		var err error
-		session, err = wd.NewSession(desiredCapabilities, Capabilities{})
+		session, err = wd.NewSession(desiredCapabilities)
 		if err != nil {
 			t.Fatal(err)
 		}

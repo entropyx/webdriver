@@ -344,8 +344,8 @@ func (d *FirefoxDriver) Stop() error {
 	return nil
 }
 
-func (d *FirefoxDriver) NewSession(desired, required Capabilities) (*Session, error) {
-	session, err := d.newSession(desired, required)
+func (d *FirefoxDriver) NewSession(caps Capabilities) (*Session, error) {
+	session, err := d.newSession(caps)
 	if err != nil {
 		return nil, err
 	}

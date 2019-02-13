@@ -123,10 +123,10 @@ func (d *ChromeDriver) Stop() error {
 	return nil
 }
 
-func (d *ChromeDriver) NewSession(desired, required Capabilities) (*Session, error) {
+func (d *ChromeDriver) NewSession(caps Capabilities) (*Session, error) {
 	//id, capabs, err := d.newSession(desired, required)
 	//return &Session{id, capabs, d}, err
-	session, err := d.newSession(desired, required)
+	session, err := d.newSession(caps)
 	if err != nil {
 		return nil, err
 	}

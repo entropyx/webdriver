@@ -246,12 +246,12 @@ func (w WebDriverCore) Status() (*Status, error) {
 
 //Create a new session.
 //The server should attempt to create a session that most closely matches the desired and required capabilities. Required capabilities have higher priority than desired capabilities and must be set for the session to be created.
-func (w WebDriverCore) newSession(desired, required Capabilities) (*Session, error) {
-	if desired == nil {
-		desired = map[string]interface{}{}
+func (w WebDriverCore) newSession(caps Capabilities) (*Session, error) {
+	if caps == nil {
+		caps = map[string]interface{}{}
 	}
-	p := params{"desiredCapabilities": desired, "requiredCapabilities": required}
-	sessionId, data, err := w.do(p, "POST", "/session")
+
+	sessionId, data, err := w.do(caps, "POST", "/session")
 	if err != nil {
 		return nil, err
 	}

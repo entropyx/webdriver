@@ -10,7 +10,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
-
 	//	"fmt"
 	//	"net/http"
 )
@@ -23,7 +22,7 @@ type WebDriver interface {
 	//Query the server's status.
 	Status() (*Status, error)
 	//Create a new session.
-	NewSession(desired, required Capabilities) (*Session, error)
+	NewSession(caps Capabilities) (*Session, error)
 	//Returns a list of the currently active sessions.
 	Sessions() ([]Session, error)
 
