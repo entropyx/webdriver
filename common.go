@@ -250,8 +250,8 @@ func (w WebDriverCore) newSession(caps Capabilities) (*Session, error) {
 	if caps == nil {
 		caps = map[string]interface{}{}
 	}
-
-	sessionId, data, err := w.do(caps, "POST", "/session")
+	p := params{"desiredCapabilities": caps}
+	sessionId, data, err := w.do(p, "POST", "/session")
 	if err != nil {
 		return nil, err
 	}

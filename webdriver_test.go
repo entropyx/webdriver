@@ -382,18 +382,18 @@ func TestElements(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	we, err := session.FindElement(ID, "foo")
+	we, err := session.FindElement(ByID, "foo")
 	if err != nil {
 		t.Fatal(err)
 	}
-	wev, err := session.FindElements(ID, "foo")
+	wev, err := session.FindElements(ByID, "foo")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if we.id != wev[0].id {
 		t.Fatal("ids of same element differ")
 	}
-	we2, err := we.FindElement(PartialLinkText, "linktogo")
+	we2, err := we.FindElement(ByPartialLinkText, "linktogo")
 	if err != nil {
 		t.Fatal(err)
 	}

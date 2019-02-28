@@ -52,9 +52,6 @@ type OS struct {
 	Version string
 }
 
-//Capabilities is a map that stores capabilities of a session.
-type Capabilities map[string]interface{}
-
 //A session.
 type Session struct {
 	Id           string
@@ -81,21 +78,21 @@ type FindElementStrategy string
 
 const (
 	//Returns an element whose class name contains the search value; compound class names are not permitted.
-	ClassName = FindElementStrategy("class name")
+	ByClassName FindElementStrategy = "class name"
 	//Returns an element matching a CSS selector.
-	CSS_Selector = FindElementStrategy("css selector")
+	ByCSSSelector = "css selector"
 	//Returns an element whose ID attribute matches the search value.
-	ID = FindElementStrategy("id")
+	ByID = "id"
 	//Returns an element whose NAME attribute matches the search value.
-	Name = FindElementStrategy("name")
+	ByName = "name"
 	//Returns an anchor element whose visible text matches the search value.
-	LinkText = FindElementStrategy("link text")
+	ByLinkText = "link text"
 	//Returns an anchor element whose visible text partially matches the search value.
-	PartialLinkText = FindElementStrategy("partial link text")
+	ByPartialLinkText = "partial link text"
 	//Returns an element whose tag name matches the search value.
-	TagName = FindElementStrategy("tag name")
+	ByTagName = "tag name"
 	//Returns an element matching an XPath expression.
-	XPath = FindElementStrategy("xpath")
+	ByXPath = "xpath"
 )
 
 type element struct {
@@ -551,6 +548,20 @@ func (e WebElement) FindElements(using FindElementStrategy, value string) ([]Web
 func (e WebElement) Click() error {
 	_, _, err := e.s.wd.do(nil, "POST", "/session/%s/element/%s/click", e.s.Id, e.id)
 	return err
+}
+
+func (e WebElement) Screenshot(scroll bool) ([]byte, error) {
+	var s string
+	_, data, err := e.s.wd.do(nil, "GET", "/session/%s/element/%s/screenshot", e.s.Id, e.id)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &s)
+
+	if err != nil {
+		return nil, err
+	}
+	return base64.StdEncoding.DecodeString(string(s))
 }
 
 //Submit a FORM element.
